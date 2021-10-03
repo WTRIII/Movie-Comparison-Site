@@ -113,3 +113,4 @@ fetch(apiUrl)
 /*var getProductInfo = function (prodUrl) {
   
 }*/
+}*/
