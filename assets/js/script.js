@@ -126,6 +126,7 @@ var getProductInfo = function (prodUrl) {
             prodInfo.rating = data.reviews.rating + ' stars';
             prodInfo.price = data.samplePrice;
             prodInfo.image = data.imageUrlList;
+            prodInfo.url = prodUrl[i];
             console.log(prodInfo);
             return prodInfo;
           });
@@ -151,6 +152,7 @@ if (prodUrl[0] == '/amz/amazon') {
           prodInfo.rating = data.productRating;
           prodInfo.price = data.price;
           prodInfo.image = data.imageUrlList;
+          prodInfo.url = 'https://www.amazon.com/dp/' + prodUrl[i];
           console.log(prodInfo);
           return prodInfo;
         });
@@ -175,6 +177,7 @@ if (prodUrl[0] == '/wlm/walmart') {
           prodInfo.rating = data.productRating;
           prodInfo.price = data.price;
           prodInfo.image = data.imageUrlList;
+          prodInfo.url = 'https://www.walmart.com/ip/' + prodUrl[i];
           console.log(prodInfo);
           return prodInfo;
         });
