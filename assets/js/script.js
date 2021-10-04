@@ -128,11 +128,19 @@ if (info.plot) {
     '<strong>Plot:</strong> No plot for this entry.';
 }
 
+console.log(info.url);
+
+var linkButtonEl = document.createElement('a');
+linkButtonEl.textContent = 'Read More';
+linkButtonEl.setAttribute('href', info.url);
+linkButtonEl.classList.add('btn', 'btn-dark');
+
+
 localStorage.setItem("name", titleEl.textContent);
 localStorage.setItem("rating", ratingEl);
 localStorage.setItem("plot", plotEl);
 
-resultContentEl.append(titleEl, bodyContentEl);
+resultContentEl.append(titleEl, bodyContentEl, linkButtonEl);
 
 resultContentEl.append(resultBody);
 
