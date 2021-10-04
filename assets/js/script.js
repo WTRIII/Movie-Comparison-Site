@@ -123,7 +123,7 @@ var getProductInfo = function (prodUrl) {
             console.log(data);
             let prodInfo = {};
             prodInfo.name = data.productTitle;
-            prodInfo.rating = data.reviews.rating;
+            prodInfo.rating = data.reviews.rating + ' stars';
             prodInfo.price = data.samplePrice;
             prodInfo.image = data.imageUrlList;
             console.log(prodInfo);
