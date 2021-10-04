@@ -1,5 +1,6 @@
 # Project-1-Shopping-Comparison-Site
 
+<<<<<<< HEAD
 ## Project Requirements
 
 You and your group will use everything you’ve learned over the past six units to create a real-world front-end application that you’ll be able to showcase to potential employers. The user story and acceptance criteria will depend on the project that you create, but your project must fulfil the following requirements:
@@ -48,3 +49,7 @@ Use this [project presentation template](https://docs.google.com/presentation/d/
 ### additional product information and pricing
 ### alerts if there is a product on sale
 * Links to the deployed application and the GitHub repository
+=======
+Going from an array of urls to an array of objects with information about each product seemed like the best way to do it to me
+![hand-drawn flowchart of how I go from an array of URLs to an output array of objects with Price, Rating, Title, and image URLs](https://github.com/WTRIII/Project-1-Shopping-Comparison-Site/blob/keshav/assets/img/api-plan-flowchart.jpg?raw=true)
+>>>>>>> main
