@@ -137,10 +137,36 @@ return object out of function
 /* create url for search terms, varUrl = 'placeholder format' + search input var + 'last bit placeholder'
 */
 // Var brand will change the url for whichever site we want to search for keyword.  Amazon is '/amz/amazon', Alibaba is '/alb/alibaba', walmart is '/wlm/walmart'
-var getProduct = function (searchEl, brand) {
-  //Either specify brand as part of argument or iterate thru all 3 every time
-  var apiUrl = 'http://api-prd.axesso.de' + brand + '-search-by-keyword-asin?keyword=' + searchEl + '&asin='/*api key*/'domainCode=com&sortBy=review-rank' //sort by average user review with review-rank
-  fetch(apiUrl)
+// var search = function (searchEl) {
+//   var apiUrls = []
+//   apiUrls.push('https://movie-database-imdb-alternative.p.rapidapi.com/?s=' + searchEl + '&r=json&page=1', {
+//     "method": "GET",
+//     "headers": {
+//       "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
+//       "x-rapidapi-key": "69e5639567msh04fcedaeb274ddap1281c2jsnb13aa2fe71aa"
+//     }
+//   })
+//   apiUrls.push('http://www.omdbapi.com/?t=' + searchEl + '&apikey=a8a7dac0')
+//   apiUrls.push()
+// }
+var getProduct = function (searchEl) {
+  //searchEl = 'Avengers Endgame';
+  searchEl = searchEl.split(' ').join('%20');
+  // var apiUrl = 'https://movie-database-imdb-alternative.p.rapidapi.com/?s=' + Titanic + '&r=json&page=1', {
+  //   "method": "GET",
+  //   "headers": {
+  //     "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
+  //     "x-rapidapi-key": "69e5639567msh04fcedaeb274ddap1281c2jsnb13aa2fe71aa"
+  //   }
+  // } 
+  // fetch(apiUrl)
+  fetch("https://movie-database-imdb-alternative.p.rapidapi.com/?s=" + searchEl + "&r=json&page=1", {
+	"method": "GET",
+	"headers": {
+		"x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
+		"x-rapidapi-key": "69e5639567msh04fcedaeb274ddap1281c2jsnb13aa2fe71aa"
+	}
+})
     .then(function (response){
       if (response.ok)  {
         //Show response in console
@@ -148,35 +174,9 @@ var getProduct = function (searchEl, brand) {
         //To-do: find how response data is structured to isolate info needed
         response.json().then(function(data){
           console.log(data);
-          //data is a list of the back end of URLs for the different shoppin sites.  Walmart needs to have 'https://www.walmart.com/' before the tag, unsure for amazon and alibaba rn
-          //I could either keep these if statements in this function, or make a separate one to parse data into URLs to feed the 2nd part of the api
-        if (brand == '/wlm/walmart') { //If the brand is walmart, creates the urls needed to find product info
-           urlArray = [];
-         for (let i = 0; i < data.length; i++) {
-            prodUrl = 'https://www.walmart.com/' + data[i];
-            urlArray.push(prodUrl);
-          }
-          return urlArray
-         };
-
-        if (brand == '/amz/amazon') { //If the brand is amazon, creates the urls needed to find product info
-          urlArray = [];
-        for (let i = 0; i < data.length; i++) {
-           prodUrl = 'https://www.amazon.com/dp/' + data[i];
-          urlArray.push(prodUrl);
-        }
-        return urlArray
-        };
-
-        if (brand == '/alb/alibaba') { //If the brand is alibaba, creates the urls needed to find product info
-          urlArray = [brand];
-        for (let i = 0; i < data.length; i++) {
-           prodUrl =  data[i];
-          urlArray.push(prodUrl);
-         }
-       
-        return urlArray
-        };
+          console.log(data.Search);
+          console.log(getInfo(data.Search[0].imdbID));
+         
 
         });
       } else {
@@ -192,87 +192,46 @@ var getProduct = function (searchEl, brand) {
       };
 
 // Turn array of URLs into data needed to compare products.  Could do this inside the for loops for each url instead of outputting array but would have to store a lot of data
-var getProductInfo = function (prodUrl) {
-  if (prodUrl[0] == '/alb/alibaba') {
-    for (let i = 1; i < data.length; i++) {
-      var apiUrl = 'http://api-prd2.axesso.de/alb/alibaba-lookup-product?url=' + prodUrl[i];
-      fetch(apiUrl);
-      .then(function(response){
-        if (response.ok)  {
-          console.log(response)
-          response.json().then(function(data) {
-            console.log(data);
-            let prodInfo = {};
-            prodInfo.name = data.productTitle;
-            prodInfo.rating = data.reviews.rating + ' stars';
-            prodInfo.price = data.samplePrice;
-            prodInfo.image = data.imageUrlList;
-            prodInfo.url = prodUrl[i];
-            console.log(prodInfo);
-            return prodInfo;
+var getInfo = function (prodUrlID) {
+
+  // var apiUrl = 'https://movie-database-imdb-alternative.p.rapidapi.com/?r=json&i=' + ID, {
+  //     "method": "GET",
+  //     "headers": {
+  //       "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
+  //       "x-rapidapi-key": "69e5639567msh04fcedaeb274ddap1281c2jsnb13aa2fe71aa" 
+  //     }
+  //   };
+  // fetch(apiUrl)
+  fetch("https://movie-database-imdb-alternative.p.rapidapi.com/?r=json&i="+ prodUrlID, {
+	"method": "GET",
+	"headers": {
+		"x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
+		"x-rapidapi-key": "69e5639567msh04fcedaeb274ddap1281c2jsnb13aa2fe71aa"
+	}
+})
+    .then(function(response){
+      if (response.ok)  {
+        console.log(response)
+        response.json().then(function(data) {
+          console.log(data);
+          let info = {};
+          info.name = data.Title;
+          info.rating = data.Ratings;
+          info.plot = data.Plot;
+          info.image = data.Poster;
+          console.log(info);
+          return info;
           });
         } else {
           //Report errors
-          alert('Error: ' + response.statusText);
+          alert('Error:'  + response.statusText)
         }
-      });   
-  } 
-
-}
-if (prodUrl[0] == '/amz/amazon') {
-  for (let i = 1; i < data.length; i++) {
-    var apiUrl = 'http://api-prd2.axesso.de/amz/amazon-lookup-product?url=https://www.amazon.com/dp/' + prodUrl[i];
-    fetch(apiUrl);
-    .then(function(response){
-      if (response.ok)  {
-        console.log(response)
-        response.json().then(function(data) {
-          console.log(data);
-          let prodInfo = {};
-          prodInfo.name = data.productTitle;
-          prodInfo.rating = data.productRating;
-          prodInfo.price = data.price;
-          prodInfo.image = data.imageUrlList;
-          prodInfo.url = 'https://www.amazon.com/dp/' + prodUrl[i];
-          console.log(prodInfo);
-          return prodInfo;
-        });
-      } else {
-        //Report errors
-        alert('Error: ' + response.statusText);
-      }
-    });   
-} 
-}
-if (prodUrl[0] == '/wlm/walmart') {
-  for (let i = 1; i < data.length; i++) {
-    var apiUrl = 'http://api-prd2.axesso.de/wlm/walmart-lookup-product?url=https://www.walmart.com/ip/' + prodUrl[i];
-    fetch(apiUrl)
-    .then(function(response){
-      if (response.ok)  {
-        console.log(response)
-        response.json().then(function(data) {
-          console.log(data);
-          let prodInfo = {};
-          prodInfo.name = data.productTitle;
-          prodInfo.rating = data.productRating;
-          prodInfo.price = data.price;
-          prodInfo.image = data.imageUrlList;
-          prodInfo.url = 'https://www.walmart.com/ip/' + prodUrl[i];
-          console.log(prodInfo);
-          return prodInfo;
-        });
-      } else {
-        //Report errors
-        alert('Error: ' + response.statusText);
-      }
-    });   
-} 
-}
-}
-/*.catch(function (error) {
-  //If the normal error response fails, this will also report an error
-  alert('Unable to connect');
-}*/
+      });
+  }
+getProduct()
+// .catch(function (error) {
+//   //If the normal error response fails, this will also report an error
+//   alert('Unable to connect');
+// }
 
 >>>>>>> main
