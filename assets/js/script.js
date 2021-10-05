@@ -4,7 +4,7 @@ var searchButton = document.querySelector('#search-button');
 var getProduct = function (searchEl) {
    console.log(searchEl)
    searchEl = searchEl.trim()
-    searchEl = searchEl.split(' ').join('%20');
+    searchEl = searchEl.split(' ').filter(s => s).join('%20');
     fetch("https://movie-database-imdb-alternative.p.rapidapi.com/?s=" + searchEl + "&r=json&page=1", {
       "method": "GET",
       "headers": {
