@@ -103,31 +103,57 @@ searchButton.addEventListener('click', conductSearch);
 
 function displayMovieInfo(info){
 console.log(info);
-//var resultCard = document.createElement('div');
-//resultCard.classList.add('card', 'bg-light', 'text-dark', 'mb-3', 'p-3');
 
 var resultBody = document.createElement('div');
 resultBody.classList.add('card-body', 'bg-light', 'text-dark', 'mb-3', 'p-3');
-//resultCard.append(resultBody);
 
-
-
-var titleEl = document.createElement('h1');
+var titleEl = document.createElement('h3');
 titleEl.textContent = info.name;
 
 var bodyContentEl = document.createElement('div');
+
+var ratingTextEl0 = document.createElement('p')
+ratingTextEl0.textContent = "IMDb: "
+
+var ratingTextEl = document.createElement('p')
+ratingTextEl.textContent = "Rotten Tomatoes: "
+
+var ratingTextEl2 = document.createElement('p')
+ratingTextEl2.textContent = "Metacritic: "
+
+var ratingEl0 = document.createElement('strong');
 var ratingEl = document.createElement('strong');
+//ratingEl.innerText = "Score from Rotten Tomato:";
+var ratingEl2 = document.createElement('strong');
+//ratingEl2.innerText = "Score from Rotten Tomato:";
 var plotEl = document.createElement('h5')
+
+// ratingEl.innerText = "This is a paragraph";               // Insert text
+// document.body.appendChild(ratingEl);    
+
+// var ratingEl = htmlElement.innerText
+// htmlElement.innerText = "Score from Rotten Tomatoes: "
+
+ratingEl.innerText = "Score from Rotten Tomatoes: "
+
+ratingEl0.textContent = info.rating[0].Value;
 ratingEl.textContent = info.rating[1].Value;
-//plotEl.textContent = info.plot;
+ratingEl2.textContent = info.rating[2].Value;
+
+bodyContentEl.append(ratingTextEl0)
+bodyContentEl.append(ratingEl0)
+
+bodyContentEl.append(ratingTextEl) 
 bodyContentEl.append(ratingEl) 
+
+bodyContentEl.append(ratingTextEl2)
+bodyContentEl.append(ratingEl2)
+
 bodyContentEl.append(plotEl)
 
 // ratingEl;
 
 if (info.plot) {
-  // bodyContentEl.innerHTML +=
-  //   plotEl;
   plotEl.textContent = info.plot;
   bodyContentEl.append(plotEl)
   
@@ -146,14 +172,11 @@ linkButtonEl.classList.add('btn', 'btn-dark');
 
 var poster = document.createElement('img')
 poster.setAttribute('src', info.image)
-// posterEl = info.image;
-// bodyContentEl.innerHTML +=
-//   `<img src = ${posterEl}></img>`;
 bodyContentEl.append(poster)
 
-localStorage.setItem("name", titleEl.textContent);
-localStorage.setItem("rating", ratingEl);
-localStorage.setItem("plot", plotEl);
+// localStorage.setItem("name", titleEl.textContent);
+// localStorage.setItem("rating", ratingEl);
+// localStorage.setItem("plot", plotEl);
 
 resultContentEl.append(titleEl, bodyContentEl, linkButtonEl);
 
@@ -165,38 +188,38 @@ resultContentEl.append(titleEl, bodyContentEl, linkButtonEl);
 
 ////
 
-function displayResults(resultObj) {
-  console.log(resultObj);
-  //creates the card div
-  var resultCard = document.createElement('div');
-  resultCard.addClass('card');
-    // creates the card body
-      var cardContent = document.createElement('div');
-      cardContent.addClass('card-content');
-      resultCard.append(cardContent);
-    // adds a name/title to the card
-      var name = document.createElement('h3');
-      name.textContent = resultObj.name;
-    // creates the main body of the search result
-      var bodyContent = document.createElement('p');
-      bodyContent.innerHTML =
-        'Rating: ' + resultObj.rating + '<br/>'; //adds the rating string
+// function displayResults(resultObj) {
+//   console.log(resultObj);
+//   //creates the card div
+//   var resultCard = document.createElement('div');
+//   resultCard.addClass('card');
+//     // creates the card body
+//       var cardContent = document.createElement('div');
+//       cardContent.addClass('card-content');
+//       resultCard.append(cardContent);
+//     // adds a name/title to the card
+//       var name = document.createElement('h3');
+//       name.textContent = resultObj.name;
+//     // creates the main body of the search result
+//       var bodyContent = document.createElement('p');
+//       bodyContent.innerHTML =
+//         'Rating: ' + resultObj.rating + '<br/>'; //adds the rating string
               
-      if (resultObj.plot) { //logic loop to add plot description line or return no description
-        bodyContent.innerHTML +=
-          '<strong>Description:</strong> ' + resultObj.plot;
-      } else {
-        bodyContent.innerHTML +=
-         '<strong>Description:</strong>  No description for this entry.';
-      }
-      //creates the link and button to the result
-      var productLink = document.createElement('a');
-      productLink.textContent = 'Read More'; //sets the text of the link
-      productLink.setAttribute('href', resultObj.url); //sets what the the link references
-      productLink.addClass('button'); //classes the link as a button
+//       if (resultObj.plot) { //logic loop to add plot description line or return no description
+//         bodyContent.innerHTML +=
+//           '<strong>Description:</strong> ' + resultObj.plot;
+//       } else {
+//         bodyContent.innerHTML +=
+//          '<strong>Description:</strong>  No description for this entry.';
+//       }
+//       //creates the link and button to the result
+//       var productLink = document.createElement('a');
+//       productLink.textContent = 'Read More'; //sets the text of the link
+//       productLink.setAttribute('href', resultObj.url); //sets what the the link references
+//       productLink.addClass('button'); //classes the link as a button
     
-      cardContent.append(name, bodyContent, productLink);
+//       cardContent.append(name, bodyContent, productLink);
     
-      productContent.append(resultCard);
-    }
+//       productContent.append(resultCard);
+//     }
 
