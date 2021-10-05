@@ -1,5 +1,6 @@
 // function for search button
 var searchButton = document.querySelector('#search-button');
+var resultContentEl = document.querySelector('#result-content');
 /////
 var getProduct = function (searchEl) {
    console.log(searchEl)
@@ -13,7 +14,7 @@ var getProduct = function (searchEl) {
       }
   })
       .then(function (response){
-        console.log(response)
+        //console.log(response)
         if (response.ok)  {
           //Show response in console
           console.log(response);
@@ -22,7 +23,7 @@ var getProduct = function (searchEl) {
             if (data.Response !== 'False') {
               console.log(data);
               console.log(data.Search);
-              console.log(getInfo(data.Search[0].imdbID));
+              //console.log(getInfo(data.Search[0].imdbID));
               return getInfo(data.Search[0].imdbID);
             }
             if (data.Response == 'False') {
@@ -62,6 +63,8 @@ var getProduct = function (searchEl) {
             info.image = data.Poster;
             info.url = 'https://www.imdb.com/title/' + prodUrlID;
             console.log(info);
+            displayMovieInfo(info);
+            //return info;
             return info;
             });
           } else {
@@ -88,6 +91,7 @@ console.log('search function called')
 var searchInputValue = document.querySelector('#search-input');
 console.log(searchInputValue.value)
 getProduct(searchInputValue.value);
+//displayMovieInfo(info);
 if(!searchInputValue){
     console.error('You need a search input value.');
     return;
@@ -99,6 +103,70 @@ if(!searchInputValue){
 
 searchButton.addEventListener('click', conductSearch);
 
+
+
+function displayMovieInfo(info){
+console.log(info);
+//var resultCard = document.createElement('div');
+//resultCard.classList.add('card', 'bg-light', 'text-dark', 'mb-3', 'p-3');
+
+var resultBody = document.createElement('div');
+resultBody.classList.add('card-body', 'bg-light', 'text-dark', 'mb-3', 'p-3');
+//resultCard.append(resultBody);
+
+
+
+var titleEl = document.createElement('h1');
+titleEl.textContent = info.name;
+
+var bodyContentEl = document.createElement('div');
+var ratingEl = document.createElement('strong');
+var plotEl = document.createElement('h5')
+ratingEl.textContent = info.rating[1].Value;
+//plotEl.textContent = info.plot;
+bodyContentEl.append(ratingEl) 
+bodyContentEl.append(plotEl)
+
+// ratingEl;
+
+if (info.plot) {
+  // bodyContentEl.innerHTML +=
+  //   plotEl;
+  plotEl.textContent = info.plot;
+  bodyContentEl.append(plotEl)
+  
+} else {
+  bodyContentEl.innerHTML +=
+    '<strong>Plot:</strong> No plot for this entry.';
+}
+//var searchString = '/display-results.html?q=' + searchInputValue;
+
+console.log(info.url);
+
+var linkButtonEl = document.createElement('a');
+linkButtonEl.textContent = 'Read More';
+linkButtonEl.setAttribute('href', info.url);
+linkButtonEl.classList.add('btn', 'btn-dark');
+
+var poster = document.createElement('img')
+poster.setAttribute('src', info.image)
+// posterEl = info.image;
+// bodyContentEl.innerHTML +=
+//   `<img src = ${posterEl}></img>`;
+bodyContentEl.append(poster)
+
+localStorage.setItem("name", titleEl.textContent);
+localStorage.setItem("rating", ratingEl);
+localStorage.setItem("plot", plotEl);
+
+resultContentEl.append(titleEl, bodyContentEl, linkButtonEl);
+
+//resultContentEl.append(resultBody);
+
+}
+
+
+=======
 ////
 
 function displayResults(resultObj) {
@@ -135,3 +203,4 @@ function displayResults(resultObj) {
     
       productContent.append(resultCard);
     }
+
