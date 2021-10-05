@@ -23,7 +23,7 @@ var getProduct = function (searchEl) {
             if (data.Response !== 'False') {
               console.log(data);
               console.log(data.Search);
-              console.log(getInfo(data.Search[0].imdbID));
+              //console.log(getInfo(data.Search[0].imdbID));
               return getInfo(data.Search[0].imdbID);
             }
             if (data.Response == 'False') {
@@ -61,9 +61,10 @@ var getProduct = function (searchEl) {
             info.rating = data.Ratings;
             info.plot = data.Plot;
             info.image = data.Poster;
+            info.url = 'https://www.imdb.com/title/' + prodUrlID;
             console.log(info);
             displayMovieInfo(info);
-            return info;
+            //return info;
             });
           } else {
             //Report errors
@@ -111,18 +112,27 @@ var resultBody = document.createElement('div');
 resultBody.classList.add('card-body', 'bg-light', 'text-dark', 'mb-3', 'p-3');
 //resultCard.append(resultBody);
 
+
+
 var titleEl = document.createElement('h1');
 titleEl.textContent = info.name;
 
-var bodyContentEl = document.createElement('p');
-ratingEl = info.rating[1].Value;
-plotEl = info.plot;
-bodyContentEl.innerHTML =
-  '<strong>Rating from Rotten Tomatoes:</strong> ' + ratingEl + '<br/>';
+var bodyContentEl = document.createElement('div');
+var ratingEl = document.createElement('strong');
+var plotEl = document.createElement('h5')
+ratingEl.textContent = info.rating[1].Value;
+//plotEl.textContent = info.plot;
+bodyContentEl.append(ratingEl) 
+bodyContentEl.append(plotEl)
+
+// ratingEl;
 
 if (info.plot) {
-  bodyContentEl.innerHTML +=
-    '<strong>Plot:</strong> ' + plotEl;
+  // bodyContentEl.innerHTML +=
+  //   plotEl;
+  plotEl.textContent = info.plot;
+  bodyContentEl.append(plotEl)
+  
 } else {
   bodyContentEl.innerHTML +=
     '<strong>Plot:</strong> No plot for this entry.';
@@ -135,6 +145,12 @@ linkButtonEl.textContent = 'Read More';
 linkButtonEl.setAttribute('href', info.url);
 linkButtonEl.classList.add('btn', 'btn-dark');
 
+var poster = document.createElement('img')
+poster.setAttribute('src', info.image)
+// posterEl = info.image;
+// bodyContentEl.innerHTML +=
+//   `<img src = ${posterEl}></img>`;
+bodyContentEl.append(poster)
 
 localStorage.setItem("name", titleEl.textContent);
 localStorage.setItem("rating", ratingEl);
@@ -142,7 +158,7 @@ localStorage.setItem("plot", plotEl);
 
 resultContentEl.append(titleEl, bodyContentEl, linkButtonEl);
 
-resultContentEl.append(resultBody);
+//resultContentEl.append(resultBody);
 
 }
 
