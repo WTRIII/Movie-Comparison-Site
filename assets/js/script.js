@@ -69,18 +69,11 @@ var getProduct = function (searchEl) {
           }
         });
     }
-  // .catch(function (error) {
-  //   //If the normal error response fails, this will also report an error
-  //   alert('Unable to connect');
-  // }
+
   
   
 
 
-
-
-
-/////
 function conductSearch(event){
 event.preventDefault();
 console.log('search function called')
@@ -107,10 +100,17 @@ console.log(info);
 var resultBody = document.createElement('div');
 resultBody.classList.add('card-body', 'bg-light', 'text-dark', 'mb-3', 'p-3');
 
+
+
+
+
+var bodyContentEl = document.createElement('div');
 var titleEl = document.createElement('h3');
 titleEl.textContent = info.name;
 
-var bodyContentEl = document.createElement('div');
+var poster = document.createElement('img')
+poster.setAttribute('src', info.image)
+bodyContentEl.append(poster)
 
 var ratingTextEl0 = document.createElement('p')
 ratingTextEl0.textContent = "IMDb: "
@@ -123,16 +123,9 @@ ratingTextEl2.textContent = "Metacritic: "
 
 var ratingEl0 = document.createElement('strong');
 var ratingEl = document.createElement('strong');
-//ratingEl.innerText = "Score from Rotten Tomato:";
 var ratingEl2 = document.createElement('strong');
-//ratingEl2.innerText = "Score from Rotten Tomato:";
 var plotEl = document.createElement('h5')
 
-// ratingEl.innerText = "This is a paragraph";               // Insert text
-// document.body.appendChild(ratingEl);    
-
-// var ratingEl = htmlElement.innerText
-// htmlElement.innerText = "Score from Rotten Tomatoes: "
 
 ratingEl.innerText = "Score from Rotten Tomatoes: "
 
@@ -149,11 +142,10 @@ bodyContentEl.append(ratingEl)
 bodyContentEl.append(ratingTextEl2)
 bodyContentEl.append(ratingEl2)
 
-bodyContentEl.append(plotEl)
 
-// ratingEl;
 
-if (info.plot) {
+
+if (info.plot) {  
   plotEl.textContent = info.plot;
   bodyContentEl.append(plotEl)
   
@@ -161,7 +153,7 @@ if (info.plot) {
   bodyContentEl.innerHTML +=
     '<strong>Plot:</strong> No plot for this entry.';
 }
-//var searchString = '/display-results.html?q=' + searchInputValue;
+
 
 console.log(info.url);
 
@@ -170,56 +162,9 @@ linkButtonEl.textContent = 'Read More';
 linkButtonEl.setAttribute('href', info.url);
 linkButtonEl.classList.add('btn', 'btn-dark');
 
-var poster = document.createElement('img')
-poster.setAttribute('src', info.image)
-bodyContentEl.append(poster)
-
-// localStorage.setItem("name", titleEl.textContent);
-// localStorage.setItem("rating", ratingEl);
-// localStorage.setItem("plot", plotEl);
-
 resultContentEl.append(titleEl, bodyContentEl, linkButtonEl);
 
-//resultContentEl.append(resultBody);
 
 }
 
-
-
-////
-
-// function displayResults(resultObj) {
-//   console.log(resultObj);
-//   //creates the card div
-//   var resultCard = document.createElement('div');
-//   resultCard.addClass('card');
-//     // creates the card body
-//       var cardContent = document.createElement('div');
-//       cardContent.addClass('card-content');
-//       resultCard.append(cardContent);
-//     // adds a name/title to the card
-//       var name = document.createElement('h3');
-//       name.textContent = resultObj.name;
-//     // creates the main body of the search result
-//       var bodyContent = document.createElement('p');
-//       bodyContent.innerHTML =
-//         'Rating: ' + resultObj.rating + '<br/>'; //adds the rating string
-              
-//       if (resultObj.plot) { //logic loop to add plot description line or return no description
-//         bodyContent.innerHTML +=
-//           '<strong>Description:</strong> ' + resultObj.plot;
-//       } else {
-//         bodyContent.innerHTML +=
-//          '<strong>Description:</strong>  No description for this entry.';
-//       }
-//       //creates the link and button to the result
-//       var productLink = document.createElement('a');
-//       productLink.textContent = 'Read More'; //sets the text of the link
-//       productLink.setAttribute('href', resultObj.url); //sets what the the link references
-//       productLink.addClass('button'); //classes the link as a button
-    
-//       cardContent.append(name, bodyContent, productLink);
-    
-//       productContent.append(resultCard);
-//     }
 
