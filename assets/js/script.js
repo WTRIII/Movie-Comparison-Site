@@ -6,12 +6,8 @@ var getProduct = function (searchEl) {
    console.log(searchEl)
    searchEl = searchEl.trim()
     searchEl = searchEl.split(' ').filter(s => s).join('%20');
-    fetch("https://movie-database-imdb-alternative.p.rapidapi.com/?s=" + searchEl + "&r=json&page=1", {
-      "method": "GET",
-      "headers": {
-          "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
-          "x-rapidapi-key": "69e5639567msh04fcedaeb274ddap1281c2jsnb13aa2fe71aa"
-      }
+    fetch("https://imdb-api.com/API/Search/k_fkn4m014/" + searchEl , {
+      
   })
       .then(function (response){
         //console.log(response)
@@ -22,9 +18,9 @@ var getProduct = function (searchEl) {
           response.json().then(function(data){
             if (data.Response !== 'False') {
               console.log(data);
-              console.log(data.Search);
+              console.log(data.results);
               //console.log(getInfo(data.Search[0].imdbID));
-              return getInfo(data.Search[0].imdbID);
+              return getInfo(data.results[0].id);
             }
             if (data.Response == 'False') {
               console.log('That movie does not exist')
@@ -166,7 +162,7 @@ resultContentEl.append(titleEl, bodyContentEl, linkButtonEl);
 }
 
 
-=======
+
 ////
 
 function displayResults(resultObj) {
