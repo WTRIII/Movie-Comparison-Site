@@ -65,6 +65,7 @@ var getProduct = function (searchEl) {
             console.log(info);
             displayMovieInfo(info);
             //return info;
+            return info;
             });
           } else {
             //Report errors
@@ -137,6 +138,7 @@ if (info.plot) {
   bodyContentEl.innerHTML +=
     '<strong>Plot:</strong> No plot for this entry.';
 }
+//var searchString = '/display-results.html?q=' + searchInputValue;
 
 console.log(info.url);
 
