@@ -59,6 +59,7 @@ var getProduct = function (searchEl) {
             info.image = data.Poster;
             info.url = 'https://www.imdb.com/title/' + prodUrlID;
             console.log(info);
+            //saveEntry(info);
             displayMovieInfo(info);
             //return info;
             return info;
@@ -95,12 +96,8 @@ searchButton.addEventListener('click', conductSearch);
 
 
 function displayMovieInfo(info){
-console.log(info);
-
-// var resultBody = document.createElement('div');
-// resultBody.classList.add('card-body', 'box');
-
-//moved titleEl from here to lower in code
+//console.log(info);
+saveEntry(info);
 
 var bodyContentEl = document.createElement('div');
 bodyContentEl.classList.add('card-body', 'box');
@@ -125,6 +122,10 @@ var plotEl = document.createElement('h5')
 
 ratingEl.innerText = "Score from Rotten Tomatoes: "
 
+var poster = document.createElement('img')
+poster.setAttribute('src', info.image);
+bodyContentEl.append(poster);
+
 ratingEl0.textContent = info.rating[0].Value;
 ratingEl.textContent = info.rating[1].Value;
 ratingEl2.textContent = info.rating[2].Value;
@@ -138,9 +139,6 @@ bodyContentEl.append(ratingEl)
 bodyContentEl.append(ratingTextEl2)
 bodyContentEl.append(ratingEl2)
 
-
-
-
 if (info.plot) {  
   plotEl.textContent = info.plot;
   bodyContentEl.append(plotEl)
@@ -150,8 +148,44 @@ if (info.plot) {
     '<strong>Plot:</strong> No plot for this entry.';
 }
 
+function saveEntry(info){
+  console.log(info);
 
-console.log(info.url);
+  // function clickCounter() {
+  //   if(typeof(Storage) !== "undefined") {
+  //     if (localStorage.clickcount) {
+  //       localStorage.clickcount = Number(localStorage.clickcount)+1;
+  //     } else {
+  //       localStorage.clickcount = 1;
+  //     }
+  //     document.getElementById("result").innerHTML = "You have clicked the button " + localStorage.clickcount + " time(s).";
+  //   } else {
+  //     document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
+  //   }
+  // }
+  var entry = {
+    movieName: info.name,
+    moviePoster: info.image,
+    ratingIMDb: info.rating[0].Value,
+    ratingRotTom: info.rating[1].Value,
+    ratingMeta: info.rating[0].Value,
+    moviePlot: info.plot
+  };
+
+
+  localStorage.setItem("entry", JSON.stringify(entry));
+
+  // var lastEntry = JSON.parse(localStorage.getItem(entry));
+
+  // if(lastEntry !== null){
+  //   document.querySelector(".body").textContent = lastEntry;
+
+  // }
+
+}
+
+
+//console.log(info.url);
 
 var linkButtonEl = document.createElement('a');
 linkButtonEl.textContent = 'Read more about ' + info.name;
@@ -159,17 +193,8 @@ linkButtonEl.setAttribute('href', info.url);
 linkButtonEl.classList.add('button');
 
 
-var poster = document.createElement('img')
-poster.setAttribute('src', info.image);
-bodyContentEl.append(poster);
-
-// localStorage.setItem("name", titleEl.textContent);
-// localStorage.setItem("rating", ratingEl);
-// localStorage.setItem("plot", plotEl);
 
 resultContentEl.append(titleEl, bodyContentEl, linkButtonEl);
-
-
 }
 
 
