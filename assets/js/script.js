@@ -30,7 +30,7 @@ var getProduct = function (searchEl) {
         } else {
           //Report errors
           alert('Error: ' + response.statusText);
-        
+
         }
           })
           .catch(function (error) {
@@ -104,13 +104,16 @@ searchButton.addEventListener('click', conductSearch);
 function displayMovieInfo(info){
 console.log(info);
 
-var resultBody = document.createElement('div');
-resultBody.classList.add('card-body', 'bg-light', 'text-dark', 'mb-3', 'p-3');
+// var resultBody = document.createElement('div');
+// resultBody.classList.add('card-body', 'box');
+
+//moved titleEl from here to lower in code
+
+var bodyContentEl = document.createElement('div');
+bodyContentEl.classList.add('card-body', 'box');
 
 var titleEl = document.createElement('h3');
 titleEl.textContent = info.name;
-
-var bodyContentEl = document.createElement('div');
 
 var ratingTextEl0 = document.createElement('p')
 ratingTextEl0.textContent = "IMDb: "
@@ -166,13 +169,14 @@ if (info.plot) {
 console.log(info.url);
 
 var linkButtonEl = document.createElement('a');
-linkButtonEl.textContent = 'Read More';
+linkButtonEl.textContent = 'Read more about ' + info.name;
 linkButtonEl.setAttribute('href', info.url);
-linkButtonEl.classList.add('btn', 'btn-dark');
+linkButtonEl.classList.add('button');
+
 
 var poster = document.createElement('img')
-poster.setAttribute('src', info.image)
-bodyContentEl.append(poster)
+poster.setAttribute('src', info.image);
+bodyContentEl.append(poster);
 
 // localStorage.setItem("name", titleEl.textContent);
 // localStorage.setItem("rating", ratingEl);

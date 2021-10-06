@@ -1,0 +1,27 @@
+body {
+    
+    background-color: #385273
+}
+
+.box{
+    width: 100%;
+    text-align:center;
+}
+
+#custom-title{
+    color: white;
+    text-align: center;
+}
+
+#result-content{
+    color: white;
+}
+
+h3{
+    font-size: 52px;
+}
+
+img {
+    background-color: black;
+    border: yellow dashed 10px;
+}
