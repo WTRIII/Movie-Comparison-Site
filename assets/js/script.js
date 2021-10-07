@@ -59,8 +59,8 @@ var getProduct = function (searchEl) {
             info.image = data.Poster;
             info.url = 'https://www.imdb.com/title/' + prodUrlID;
             console.log(info);
+            //saveEntry(info);
             displayMovieInfo(info);
-            //return info;
             return info;
             });
           } else {
@@ -69,18 +69,11 @@ var getProduct = function (searchEl) {
           }
         });
     }
-  // .catch(function (error) {
-  //   //If the normal error response fails, this will also report an error
-  //   alert('Unable to connect');
-  // }
+
   
   
 
 
-
-
-
-/////
 function conductSearch(event){
 event.preventDefault();
 console.log('search function called')
@@ -102,12 +95,8 @@ searchButton.addEventListener('click', conductSearch);
 
 
 function displayMovieInfo(info){
-console.log(info);
-
-// var resultBody = document.createElement('div');
-// resultBody.classList.add('card-body', 'box');
-
-//moved titleEl from here to lower in code
+//console.log(info);
+saveEntry(info);
 
 var bodyContentEl = document.createElement('div');
 bodyContentEl.classList.add('card-body', 'box');
@@ -126,18 +115,15 @@ ratingTextEl2.textContent = "Metacritic: "
 
 var ratingEl0 = document.createElement('strong');
 var ratingEl = document.createElement('strong');
-//ratingEl.innerText = "Score from Rotten Tomato:";
 var ratingEl2 = document.createElement('strong');
-//ratingEl2.innerText = "Score from Rotten Tomato:";
 var plotEl = document.createElement('h5')
 
-// ratingEl.innerText = "This is a paragraph";               // Insert text
-// document.body.appendChild(ratingEl);    
-
-// var ratingEl = htmlElement.innerText
-// htmlElement.innerText = "Score from Rotten Tomatoes: "
 
 ratingEl.innerText = "Score from Rotten Tomatoes: "
+
+var poster = document.createElement('img')
+poster.setAttribute('src', info.image);
+bodyContentEl.append(poster);
 
 ratingEl0.textContent = info.rating[0].Value;
 ratingEl.textContent = info.rating[1].Value;
@@ -152,11 +138,7 @@ bodyContentEl.append(ratingEl)
 bodyContentEl.append(ratingTextEl2)
 bodyContentEl.append(ratingEl2)
 
-bodyContentEl.append(plotEl)
-
-// ratingEl;
-
-if (info.plot) {
+if (info.plot) {  
   plotEl.textContent = info.plot;
   bodyContentEl.append(plotEl)
   
@@ -164,9 +146,63 @@ if (info.plot) {
   bodyContentEl.innerHTML +=
     '<strong>Plot:</strong> No plot for this entry.';
 }
-//var searchString = '/display-results.html?q=' + searchInputValue;
 
-console.log(info.url);
+function saveEntry(info){
+  console.log(info);
+
+  // function clickCounter() {
+  //   if(typeof(Storage) !== "undefined") {
+  //     if (localStorage.clickcount) {
+  //       localStorage.clickcount = Number(localStorage.clickcount)+1;
+  //     } else {
+  //       localStorage.clickcount = 1;
+  //     }
+  //     document.getElementById("result").innerHTML = "You have clicked the button " + localStorage.clickcount + " time(s).";
+  //   } else {
+  //     document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
+  //   }
+  // }
+
+  var entry = {
+    movieName: info.name,
+    moviePoster: info.image,
+    ratingIMDb: info.rating[0].Value,
+    ratingRotTom: info.rating[1].Value,
+    ratingMeta: info.rating[0].Value,
+    moviePlot: info.plot
+  };
+
+ var arrayEntry = localStorage.getItem("entry");
+ console.log(arrayEntry);
+ if(arrayEntry === null){
+  arrayEntry = [];
+  arrayEntry.push(entry)
+  localStorage.setItem("entry", JSON.stringify(arrayEntry));
+ }else{
+   var parsed = JSON.parse(arrayEntry);
+   parsed.push(entry);
+   localStorage.setItem("entry", JSON.stringify(parsed));
+ }
+
+//  var x = localStorage.getItem("entry");
+//  console.log(x);
+ //document.getElementById("bodyContentEl").innerHTML = x
+
+//  localStorage.getItem("entry");
+//  JSON.parse(parsed);
+  //localStorage.getItem("entry", JSON.parse(parsed))
+
+  // var lastEntry = JSON.parse(localStorage.getItem(entry));
+
+  // if(lastEntry !== null){
+  //   document.querySelector(".body").textContent = lastEntry;
+
+  // }
+
+}
+
+
+//console.log(info.url);
 
 var linkButtonEl = document.createElement('a');
 linkButtonEl.textContent = 'Read more about ' + info.name;
@@ -174,56 +210,8 @@ linkButtonEl.setAttribute('href', info.url);
 linkButtonEl.classList.add('button');
 
 
-var poster = document.createElement('img')
-poster.setAttribute('src', info.image);
-bodyContentEl.append(poster);
-
-// localStorage.setItem("name", titleEl.textContent);
-// localStorage.setItem("rating", ratingEl);
-// localStorage.setItem("plot", plotEl);
 
 resultContentEl.append(titleEl, bodyContentEl, linkButtonEl);
-
-//resultContentEl.append(resultBody);
-
 }
 
-
-
-////
-
-// function displayResults(resultObj) {
-//   console.log(resultObj);
-//   //creates the card div
-//   var resultCard = document.createElement('div');
-//   resultCard.addClass('card');
-//     // creates the card body
-//       var cardContent = document.createElement('div');
-//       cardContent.addClass('card-content');
-//       resultCard.append(cardContent);
-//     // adds a name/title to the card
-//       var name = document.createElement('h3');
-//       name.textContent = resultObj.name;
-//     // creates the main body of the search result
-//       var bodyContent = document.createElement('p');
-//       bodyContent.innerHTML =
-//         'Rating: ' + resultObj.rating + '<br/>'; //adds the rating string
-              
-//       if (resultObj.plot) { //logic loop to add plot description line or return no description
-//         bodyContent.innerHTML +=
-//           '<strong>Description:</strong> ' + resultObj.plot;
-//       } else {
-//         bodyContent.innerHTML +=
-//          '<strong>Description:</strong>  No description for this entry.';
-//       }
-//       //creates the link and button to the result
-//       var productLink = document.createElement('a');
-//       productLink.textContent = 'Read More'; //sets the text of the link
-//       productLink.setAttribute('href', resultObj.url); //sets what the the link references
-//       productLink.addClass('button'); //classes the link as a button
-    
-//       cardContent.append(name, bodyContent, productLink);
-    
-//       productContent.append(resultCard);
-//     }
 
