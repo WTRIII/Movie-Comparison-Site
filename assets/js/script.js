@@ -61,7 +61,6 @@ var getProduct = function (searchEl) {
             console.log(info);
             //saveEntry(info);
             displayMovieInfo(info);
-            //return info;
             return info;
             });
           } else {
@@ -163,6 +162,7 @@ function saveEntry(info){
   //     document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
   //   }
   // }
+
   var entry = {
     movieName: info.name,
     moviePoster: info.image,
@@ -172,8 +172,25 @@ function saveEntry(info){
     moviePlot: info.plot
   };
 
+ var arrayEntry = localStorage.getItem("entry");
+ console.log(arrayEntry);
+ if(arrayEntry === null){
+  arrayEntry = [];
+  arrayEntry.push(entry)
+  localStorage.setItem("entry", JSON.stringify(arrayEntry));
+ }else{
+   var parsed = JSON.parse(arrayEntry);
+   parsed.push(entry);
+   localStorage.setItem("entry", JSON.stringify(parsed));
+ }
 
-  localStorage.setItem("entry", JSON.stringify(entry));
+//  var x = localStorage.getItem("entry");
+//  console.log(x);
+ //document.getElementById("bodyContentEl").innerHTML = x
+
+//  localStorage.getItem("entry");
+//  JSON.parse(parsed);
+  //localStorage.getItem("entry", JSON.parse(parsed))
 
   // var lastEntry = JSON.parse(localStorage.getItem(entry));
 
