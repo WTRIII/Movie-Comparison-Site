@@ -1,7 +1,8 @@
 var searchButton = document.querySelector('#search-button');
 var resultContentEl = document.querySelector('#result-content');
 var searchFormTitle = document.getElementById('custom-title');
-/////
+
+///// function to fetch APIs
 var getProduct = function (searchEl) {
    console.log(searchEl)
    searchEl = searchEl.trim()
@@ -71,8 +72,7 @@ var getProduct = function (searchEl) {
         });
     }
 
-  
-  
+
 
 // function that runs a search
 function conductSearch(event){

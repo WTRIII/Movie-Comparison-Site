@@ -1,55 +1,57 @@
-# Project-1-Shopping-Comparison-Site
+# Project 1: Movie Rating Comparison
 
-<<<<<<< HEAD
-## Project Requirements
+Live Link: https://wtriii.github.io/Project-1-Shopping-Comparison-Site/ 
+GitHub Repo Link: https://github.com/WTRIII/Project-1-Shopping-Comparison-Site 
 
-You and your group will use everything you’ve learned over the past six units to create a real-world front-end application that you’ll be able to showcase to potential employers. The user story and acceptance criteria will depend on the project that you create, but your project must fulfil the following requirements:
+Collaborators: Keshav Krishnan, Mackenzie Neveaux, Jesse Alvarez, William Renfroe
+- GitHub Links:
+    - Keshav: https://github.com/Xevshak
+    - Mackenzie: https://github.com/mackenzieneveaux
+    - Jesse: https://github.com/Jalvarez025
+    - William: https://github.com/WTRIII
 
-* Use a CSS framework other than Bootstrap.
-### using Bulma
-* Be deployed to GitHub Pages.
+## Summary
+    
+    The purpose of our project is to create a site that allows a user to search for a movie and compare ratings of top critic sites in addition to following a link to the movie where more information can be found. By using APIs to aggregate data, we created a site that gets information from multiple sites and presents the information in a centralized location. From here, the user can compare different ratings of any movie to see differences in reviews, see a short plot summary, and follow a link to more information about the movie.
 
-* Be interactive (i.e., accept and respond to user input).
-### search function similar to mini-project 05
-* Use at least two [server-side APIs](https://coding-boot-camp.github.io/full-stack/apis/api-resources).
-###
-* Does not use alerts, confirms, or prompts (use modals).
-###
-* Use client-side storage to store persistent data.
-### local storage of searches or items searched
-* Be responsive.
-### scaling to different user sizes - bulma should do this automatically
-* Have a polished UI.
-### styling
-* Have a clean repository that meets quality coding standards (file structure, naming conventions, follows best practices for class/id naming conventions, indentation, quality comments, etc.).
-### industry-standard syntax
-* Have a quality README (with unique name, description, technologies used, screenshot, and link to deployed application).
-### emulate the best-quality example readme
+    The site uses 2 Server-side APIs to generate the information and Bulma as the CSS framework. The site uses Java Script to power the functionality.
 
-## Presentation Requirements
+## Image of completed site
+![](./assets/img/initial-page-search-bar.png)
 
-Use this [project presentation template](https://docs.google.com/presentation/d/10QaO9KH8HtUXj__81ve0SZcpO5DbMbqqQr4iPpbwKks/edit?usp=sharing) to address the following: 
+## Image of completed site after used for a user search
+![](./assets/img/initial-page-search-bar.png) //update to completed search image//
 
-### One person runs the presentation, plugs in people to brief sections
+### User Story
 
-### Primary presenter introduces team, all presenters introduce themselves - sets the standard of the main presenter prompting another team member to brief a section.
+Conceive and execute a design that solves a real-world problem by integrating data received from multiple server-side API requests. 
 
-### primary presenter keeps on-time and on-task and steps in to assist team member briefing if needed
+The team identified the problem of biased review sites for movies. We set out to create a neutral site that aggregates multiple rating sources in one location for comparison of ratings by the user. The user can also access additional information regarding a searched movie. 
 
-* Elevator pitch: a one minute description of your application
+### Technical Requirements
 
-* Concept: What is your user story? What was your motivation for development?
+All technical requirements were accomplished for this project. The technical requirements are as follows: 
 
-* Process: What were the technologies used? How were tasks and roles broken down and assigned? What challenges did you encounter? What were your successes?
+- Use a CSS framework other than Bootstrap
+- Be interactive (i.e., accept and respond to user input).
+- Use at least two server-side APIs
+- Does not use alerts, confirms, or prompts (uses modals instead)
+- Use client-side storage to store persistent data
+- Be responsive to different screen sizes
+- Have a polished UI
+- Have a clean repository that meets quality coding standards (file structure, naming conventions, follows best practices for class/id naming conventions, indentation, quality comments, etc.)
+- Have a quality README (with unique name, description, technologies used, screenshot, and link to deployed application)
+- Be deployed to GitHub Pages
 
-* Demo: Show your stuff!
-### Live site demo - backup plan of local site if live inop
-* Directions for Future Development
-### additional items listed in search
-### additional product information and pricing
-### alerts if there is a product on sale
-* Links to the deployed application and the GitHub repository
-=======
-Going from an array of urls to an array of objects with information about each product seemed like the best way to do it to me
-![hand-drawn flowchart of how I go from an array of URLs to an output array of objects with Price, Rating, Title, and image URLs](https://github.com/WTRIII/Project-1-Shopping-Comparison-Site/blob/keshav/assets/img/api-plan-flowchart.jpg?raw=true)
->>>>>>> main
+### Future Development
+
+    The site presents opportunities for future development in multiple ways:
+
+    1. Searching for genres of movies using filters, rather than only movie titles
+    2. Broader search functionality (more user-forgiving regarding search terms)
+    3. Image carousels for a searched movie in order to see image stills and different posters for the same movie
+    4. Creating a busier homepage, such as adding trending movies, popular movies or genres, trivia
+    5. Implementation of advanced styling
+    6. Monetization through adds or sponsorship
+
+### Summary of Code
