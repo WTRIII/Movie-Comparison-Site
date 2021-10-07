@@ -1,6 +1,6 @@
-// function for search button
 var searchButton = document.querySelector('#search-button');
 var resultContentEl = document.querySelector('#result-content');
+var searchFormTitle = document.getElementById('custom-title');
 /////
 var getProduct = function (searchEl) {
    console.log(searchEl)
@@ -10,7 +10,6 @@ var getProduct = function (searchEl) {
       
   })
       .then(function (response){
-        //console.log(response)
         if (response.ok)  {
           //Show response in console
           console.log(response);
@@ -19,7 +18,6 @@ var getProduct = function (searchEl) {
             if (data.Response !== 'False') {
               console.log(data);
               console.log(data.results);
-              //console.log(getInfo(data.Search[0].imdbID));
               return getInfo(data.results[0].id);
             }
             if (data.Response == 'False') {
@@ -29,8 +27,9 @@ var getProduct = function (searchEl) {
           });
         } else {
           //Report errors
-          alert('Error: ' + response.statusText);
-
+          var errorMsg = document.createElement('p');
+          errorMsg = 'Error: ' + response.statusText;
+          searchFormTitle.append(errorMsg);
         }
           })
           .catch(function (error) {
@@ -65,7 +64,9 @@ var getProduct = function (searchEl) {
             });
           } else {
             //Report errors
-            alert('Error:'  + response.statusText)
+            var errorMsg = document.createElement('p');
+            errorMsg = 'Error: ' + response.statusText;
+            searchFormTitle.append(errorMsg);
           }
         });
     }
@@ -73,7 +74,7 @@ var getProduct = function (searchEl) {
   
   
 
-
+// function that runs a search
 function conductSearch(event){
 event.preventDefault();
 console.log('search function called')
@@ -85,17 +86,13 @@ if(!searchInputValue){
     console.error('You need a search input value.');
     return;
 }
-//var searchString = '/display-results.html?q=' + searchInputValue;
-
-//location.assign(searchString);
 }
 
 searchButton.addEventListener('click', conductSearch);
 
 
-
+// creates HTML search results
 function displayMovieInfo(info){
-//console.log(info);
 saveEntry(info);
 
 var bodyContentEl = document.createElement('div');
@@ -147,21 +144,14 @@ if (info.plot) {
     '<strong>Plot:</strong> No plot for this entry.';
 }
 
+var linkButtonEl = document.createElement('a');
+linkButtonEl.textContent = 'Read more about ' + info.name;
+linkButtonEl.setAttribute('href', info.url);
+linkButtonEl.classList.add('button');
+
+//local storage functionality - retains search when moving away from the page
 function saveEntry(info){
   console.log(info);
-
-  // function clickCounter() {
-  //   if(typeof(Storage) !== "undefined") {
-  //     if (localStorage.clickcount) {
-  //       localStorage.clickcount = Number(localStorage.clickcount)+1;
-  //     } else {
-  //       localStorage.clickcount = 1;
-  //     }
-  //     document.getElementById("result").innerHTML = "You have clicked the button " + localStorage.clickcount + " time(s).";
-  //   } else {
-  //     document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
-  //   }
-  // }
 
   var entry = {
     movieName: info.name,
@@ -184,31 +174,7 @@ function saveEntry(info){
    localStorage.setItem("entry", JSON.stringify(parsed));
  }
 
-//  var x = localStorage.getItem("entry");
-//  console.log(x);
- //document.getElementById("bodyContentEl").innerHTML = x
-
-//  localStorage.getItem("entry");
-//  JSON.parse(parsed);
-  //localStorage.getItem("entry", JSON.parse(parsed))
-
-  // var lastEntry = JSON.parse(localStorage.getItem(entry));
-
-  // if(lastEntry !== null){
-  //   document.querySelector(".body").textContent = lastEntry;
-
-  // }
-
 }
-
-
-//console.log(info.url);
-
-var linkButtonEl = document.createElement('a');
-linkButtonEl.textContent = 'Read more about ' + info.name;
-linkButtonEl.setAttribute('href', info.url);
-linkButtonEl.classList.add('button');
-
 
 
 resultContentEl.append(titleEl, bodyContentEl, linkButtonEl);
