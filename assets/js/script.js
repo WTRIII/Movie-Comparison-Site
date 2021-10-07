@@ -59,7 +59,7 @@ var getProduct = function (searchEl) {
             info.image = data.Poster;
             info.url = 'https://www.imdb.com/title/' + prodUrlID;
             console.log(info);
-            //saveEntry(info);
+            saveEntry(info);
             displayMovieInfo(info);
             return info;
             });
@@ -92,11 +92,50 @@ if(!searchInputValue){
 
 searchButton.addEventListener('click', conductSearch);
 
+function savedMovies(){
+  var movies = JSON.parse(localStorage.getItem("entry"));
+  if(movies !== null){
+    //loop through array to display movies entries
+    console.log(movies);
+    displayMovieInfo(movies[movies.length -1])
+
+
+  }
+
+}
+
+savedMovies();
+
+function saveEntry(info){
+  //console.log(info);
+
+  // var entry = {
+  //   movieName: info.name,
+  //   moviePoster: info.image,
+  //   ratingIMDb: info.rating[0].Value,
+  //   ratingRotTom: info.rating[1].Value,
+  //   ratingMeta: info.rating[0].Value,
+  //   moviePlot: info.plot
+  // };
+
+ var arrayEntry = localStorage.getItem("entry");
+ console.log(arrayEntry);
+ if(arrayEntry === null){
+  arrayEntry = [];
+  arrayEntry.push(info)
+  localStorage.setItem("entry", JSON.stringify(arrayEntry));
+ }else{
+   var parsed = JSON.parse(arrayEntry);
+   parsed.push(info);
+   localStorage.setItem("entry", JSON.stringify(parsed));
+ }
+
+}
 
 
 function displayMovieInfo(info){
 //console.log(info);
-saveEntry(info);
+//saveEntry(info);
 
 var bodyContentEl = document.createElement('div');
 bodyContentEl.classList.add('card-body', 'box');
@@ -147,59 +186,6 @@ if (info.plot) {
     '<strong>Plot:</strong> No plot for this entry.';
 }
 
-function saveEntry(info){
-  console.log(info);
-
-  // function clickCounter() {
-  //   if(typeof(Storage) !== "undefined") {
-  //     if (localStorage.clickcount) {
-  //       localStorage.clickcount = Number(localStorage.clickcount)+1;
-  //     } else {
-  //       localStorage.clickcount = 1;
-  //     }
-  //     document.getElementById("result").innerHTML = "You have clicked the button " + localStorage.clickcount + " time(s).";
-  //   } else {
-  //     document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
-  //   }
-  // }
-
-  var entry = {
-    movieName: info.name,
-    moviePoster: info.image,
-    ratingIMDb: info.rating[0].Value,
-    ratingRotTom: info.rating[1].Value,
-    ratingMeta: info.rating[0].Value,
-    moviePlot: info.plot
-  };
-
- var arrayEntry = localStorage.getItem("entry");
- console.log(arrayEntry);
- if(arrayEntry === null){
-  arrayEntry = [];
-  arrayEntry.push(entry)
-  localStorage.setItem("entry", JSON.stringify(arrayEntry));
- }else{
-   var parsed = JSON.parse(arrayEntry);
-   parsed.push(entry);
-   localStorage.setItem("entry", JSON.stringify(parsed));
- }
-
-//  var x = localStorage.getItem("entry");
-//  console.log(x);
- //document.getElementById("bodyContentEl").innerHTML = x
-
-//  localStorage.getItem("entry");
-//  JSON.parse(parsed);
-  //localStorage.getItem("entry", JSON.parse(parsed))
-
-  // var lastEntry = JSON.parse(localStorage.getItem(entry));
-
-  // if(lastEntry !== null){
-  //   document.querySelector(".body").textContent = lastEntry;
-
-  // }
-
-}
 
 
 //console.log(info.url);
