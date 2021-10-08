@@ -59,7 +59,7 @@ var getProduct = function (searchEl) {
             info.image = data.Poster;
             info.url = 'https://www.imdb.com/title/' + prodUrlID;
             console.log(info);
-            //saveEntry(info);
+            saveEntry(info);
             displayMovieInfo(info);
             return info;
             });
@@ -90,9 +90,49 @@ if(!searchInputValue){
 
 searchButton.addEventListener('click', conductSearch);
 
+function savedMovies(){
+  var movies = JSON.parse(localStorage.getItem("entry"));
+  if(movies !== null){
+    //loop through array to display movies entries
+    console.log(movies);
+    displayMovieInfo(movies[movies.length -1])
+
+
+  }
+
+}
+
+savedMovies();
+
+function saveEntry(info){
+  //console.log(info);
+
+  // var entry = {
+  //   movieName: info.name,
+  //   moviePoster: info.image,
+  //   ratingIMDb: info.rating[0].Value,
+  //   ratingRotTom: info.rating[1].Value,
+  //   ratingMeta: info.rating[0].Value,
+  //   moviePlot: info.plot
+  // };
+
+ var arrayEntry = localStorage.getItem("entry");
+ console.log(arrayEntry);
+ if(arrayEntry === null){
+  arrayEntry = [];
+  arrayEntry.push(info)
+  localStorage.setItem("entry", JSON.stringify(arrayEntry));
+ }else{
+   var parsed = JSON.parse(arrayEntry);
+   parsed.push(info);
+   localStorage.setItem("entry", JSON.stringify(parsed));
+ }
+
+}
 
 // creates HTML search results
 function displayMovieInfo(info){
+
 saveEntry(info);
 
 var bodyContentEl = document.createElement('div');
@@ -149,32 +189,7 @@ linkButtonEl.textContent = 'Read more about ' + info.name;
 linkButtonEl.setAttribute('href', info.url);
 linkButtonEl.classList.add('button');
 
-//local storage functionality - retains search when moving away from the page
-function saveEntry(info){
-  console.log(info);
 
-  var entry = {
-    movieName: info.name,
-    moviePoster: info.image,
-    ratingIMDb: info.rating[0].Value,
-    ratingRotTom: info.rating[1].Value,
-    ratingMeta: info.rating[0].Value,
-    moviePlot: info.plot
-  };
-
- var arrayEntry = localStorage.getItem("entry");
- console.log(arrayEntry);
- if(arrayEntry === null){
-  arrayEntry = [];
-  arrayEntry.push(entry)
-  localStorage.setItem("entry", JSON.stringify(arrayEntry));
- }else{
-   var parsed = JSON.parse(arrayEntry);
-   parsed.push(entry);
-   localStorage.setItem("entry", JSON.stringify(parsed));
- }
-
-}
 
 
 resultContentEl.append(titleEl, bodyContentEl, linkButtonEl);
