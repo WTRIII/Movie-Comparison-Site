@@ -1,7 +1,7 @@
 # Project 1: Movie Rating Comparison
 
-Live Link: https://wtriii.github.io/Project-1-Shopping-Comparison-Site/ 
-GitHub Repo Link: https://github.com/WTRIII/Project-1-Shopping-Comparison-Site 
+Live Link: https://wtriii.github.io/Project-1-Movie-Comparison-Site/
+GitHub Repo Link: https://github.com/WTRIII/Project-1-Movie-Comparison-Site
 
 Collaborators: Keshav Krishnan, Mackenzie Neveaux, Jesse Alvarez, William Renfroe
 - GitHub Links:
