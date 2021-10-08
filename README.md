@@ -20,7 +20,7 @@ Collaborators: Keshav Krishnan, Mackenzie Neveaux, Jesse Alvarez, William Renfro
 ![](./assets/img/initial-page-search-bar.png)
 
 ## Image of completed site after used for a user search
-![](./assets/img/search-result.png) 
+![](./assets/img/search-result.PNG) 
 
 ### User Story
 
