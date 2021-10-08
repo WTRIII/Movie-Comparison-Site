@@ -20,7 +20,7 @@ Collaborators: Keshav Krishnan, Mackenzie Neveaux, Jesse Alvarez, William Renfro
 ![](./assets/img/initial-page-search-bar.png)
 
 ## Image of completed site after used for a user search
-![](./assets/img/initial-page-search-bar.png) //update to completed search image//
+![](./assets/img/search-result.png) 
 
 ### User Story
 
@@ -55,3 +55,10 @@ All technical requirements were accomplished for this project. The technical req
     6. Monetization through adds or sponsorship
 
 ### Summary of Code
+    1. API Functionality
+        -Created a function that used the search term to create an API url using string concatenation, and would use the url to make a fetch request from the API
+        -Edited user input to remove extra whitespace and format spaces as "%20" in order to allow the API to read it
+        -Pulled the movie's ID value from the results array and passed it into a second function
+        -Used the movie's ID to look up information about it including name, ratings from multiple sites, and the poster image
+        -Used string concatenation to creazte the imdb url used in the "read more" link
+        -Added catches for error states possible in the code, including having no search results or running out of daily pulls from the API
